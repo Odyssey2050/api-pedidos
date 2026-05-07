@@ -68,6 +68,16 @@ app.get('/api/pedidos', async (req, res) => {
   }
 });
 
+// LISTAR pedidos com cálculos (view)
+app.get('/api/pedidos/view', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM vw_pedidos ORDER BY data_entrega ASC');
+    res.json(result.rows);
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
+  }
+});
+
 // DELETAR pedido
 app.delete('/api/pedidos/:id', async (req, res) => {
   try {
